@@ -1,16 +1,19 @@
 import express from "express";
-import dotenv from "dotenv";
+import swaggerUi from "swagger-ui-express";
+
 import taskRoutes from "./routes/task.routes";
-const PORT = process.env.PORT || 3000;
+import { swaggerSpec } from "./docs/swagger";
+
 const app = express();
 
-dotenv.config();
 app.use(express.json());
 
 app.use("/tasks", taskRoutes);
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec)
+);
 
 export default app;

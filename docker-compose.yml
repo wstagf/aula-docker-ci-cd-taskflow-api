@@ -1,0 +1,18 @@
+services:
+  api:
+    build: .
+
+    container_name: taskflow-api
+
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+    environment:
+      PORT: 3000
+      DATABASE_URL: file:./dev.db
+
+    command: sh -c "npx prisma migrate deploy && npm run dev"

@@ -10,6 +10,13 @@ app.use(express.json());
 
 app.use("/tasks", taskRoutes);
 
+app.get("/", (req, res) => {
+  return res.json({
+    app: "TaskFlow API",
+    version: "1.0.0",
+  });
+});
+
 app.use(
   "/docs",
   swaggerUi.serve,
